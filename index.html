@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ads.txt Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        pre {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contents of ads.txt</h1>
+    <pre id="adsContent">Loading...</pre>
+
+    <script>
+        // Function to fetch the ads.txt content and display it
+        function loadAdsTxt() {
+            fetch('ads.txt')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('File not found');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('adsContent').textContent = data;
+                })
+                .catch(error => {
+                    document.getElementById('adsContent').textContent = 'Error: ' + error.message;
+                });
+        }
+
+        // Load the ads.txt content on page load
+        window.onload = loadAdsTxt;
+    </script>
+</body>
+</html>
